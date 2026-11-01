@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which protein is really cheaper? Compare scoops, savings and cost per gram</title>
+<meta name="description" content="Compare protein powders, prices, servings, and cost per gram to find out which one saves you the most.">
+<style>
+:root{--bg:#f3f5f9;--card:#fff;--ink:#101828;--mute:#5d6778;--line:#dde2ec;--acc:#2547f5;--accink:#fff;--best:#d9f56a;--bestink:#1e2a00;--good:#1c8a5a;--warn:#fff3d6;--warnink:#5c4100;--r:14px}
+@media(prefers-color-scheme:dark){:root{--bg:#0e131b;--card:#171e29;--ink:#edf1f8;--mute:#9aa6ba;--line:#283244;--acc:#7b93ff;--accink:#0b1020;--best:#c7ec4a;--bestink:#1b2600;--good:#4cc88a;--warn:#33280c;--warnink:#f0d38a}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header{padding:26px 0 6px}
+h1{font-size:clamp(1.7rem,4.5vw,2.6rem);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;font-weight:800}
+h2{font-size:1.2rem;margin:0 0 12px}
+h3{margin:0;font-size:1.05rem}
+.sub{color:var(--mute);margin:0;max-width:60ch}
+.meta{color:var(--mute);font-size:.88rem}
+.note{background:var(--warn);color:var(--warnink);border-radius:10px;padding:10px 12px;font-size:.92rem;margin:14px 0}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+label.f{display:block;font-size:.88rem;color:var(--mute);margin-bottom:4px}
+input,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{border:0;background:var(--card);color:var(--ink);padding:7px 14px;font:inherit;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--acc);color:var(--accink);font-weight:600}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;border-radius:999px;font:inherit;cursor:pointer}
+.btn{display:inline-block;text-align:center;text-decoration:none;padding:10px 16px;border-radius:10px;font:inherit;font-weight:600;border:1px solid var(--acc);color:var(--acc);background:transparent;cursor:pointer}
+.btn.main{background:var(--acc);color:var(--accink)}
+.btn.off{opacity:.5;border-style:dashed;cursor:not-allowed}
+.prod{border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0;background:var(--bg)}
+.rh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.w2{grid-column:span 2}
+.warn{color:#c0392b;font-size:.88rem;margin:8px 0 0}
+.verdict{background:var(--best);color:var(--bestink);border-radius:var(--r);padding:16px;display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center;margin:14px 0}
+.verdict .btn{background:var(--bestink);color:var(--best);border-color:var(--bestink);font-size:1.05rem;padding:12px 20px}
+.vk{font-size:.85rem;font-weight:600}.vn{font-size:1.5rem;font-weight:800;letter-spacing:-.01em}
+.cols{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(210px,1fr);gap:12px;overflow-x:auto;padding-bottom:6px}
+.pc{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg)}
+.pc.top{border:2px solid var(--good)}
+.rk{display:inline-block;font-size:.78rem;font-weight:700;color:var(--good);margin-bottom:4px}
+.big{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:10px 0}
+.big small{display:block;font-size:.78rem;font-weight:500;letter-spacing:0;color:var(--mute);margin-top:3px}
+dl{margin:0}dl>div{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-top:1px solid var(--line);font-size:.92rem}
+dt{color:var(--mute)}dd{margin:0;font-weight:600}
+dd.best{background:var(--best);color:var(--bestink);border-radius:6px;padding:0 6px}
+.save{margin-top:10px;padding:10px;border-radius:10px;background:var(--card);font-size:.92rem}
+.rank{list-style:none;margin:0;padding:0}
+.lrow{padding:12px 0;border-top:1px solid var(--line)}
+.lt{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.lv{margin-left:auto;font-weight:800;font-size:1.25rem}.lv small{font-size:.75rem;font-weight:500;color:var(--mute);margin-left:4px}
+.track{height:12px;background:var(--bg);border-radius:99px;overflow:hidden;margin:8px 0}
+.fill{height:100%;background:var(--acc);border-radius:99px}.fill.best{background:var(--good)}
+.ls{font-size:.9rem;color:var(--mute)}
+.shopgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+footer{color:var(--mute);font-size:.85rem;padding:12px 0 40px}
+.more{margin:0 0 10px}
+.more summary{cursor:pointer;font-weight:600;font-size:.92rem;margin-bottom:8px}
+.top-bar{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;padding:26px 0 6px}
+.user-pill{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;color:var(--mute)}
+.link-btn{background:none;border:none;color:var(--acc);font:inherit;cursor:pointer;padding:0;text-decoration:underline;font-size:inherit}
+.link-btn:hover{opacity:.8}
+.save-notice{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.88rem;margin:10px 0}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px;z-index:9999}
+.modal-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);max-width:440px;width:100%;padding:26px;box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.modal-card h2{margin:0 0 6px;font-size:1.35rem;font-weight:800}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:.9rem;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:9999;transition:opacity .2s;pointer-events:none}
+[hidden]{display:none!important}
+@media(max-width:640px){.w2{grid-column:span 1}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top-bar">
+<div>
+<h1>Which protein is really cheaper?</h1>
+</div>
+<div id="userPill" class="user-pill" hidden>
+<span id="userIdent"></span>
+<button type="button" id="signOutBtn" class="link-btn">Sign out</button>
+</div>
+</header>
+<p class="note"><b>As an Amazon Associate I earn from qualifying purchases.</b> The Buy buttons on this page are Amazon affiliate links. They cost you nothing extra.</p>
+
+<main>
+<section class="panel">
+<h2>1. Add your products</h2>
+<p class="meta" style="margin-top:-6px">Enter the price, no. of servings &amp; protein per serving.</p>
+<div class="row">
+<div class="seg" role="group" aria-label="What do you know?">
+<button type="button" data-pm="g" aria-pressed="true">I know protein per scoop (g)</button>
+<button type="button" data-pm="pct" aria-pressed="false">I know protein %</button>
+</div>
+<div style="flex:0 0 160px"><label class="f" for="spd">Scoops per day</label>
+<select id="spd"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+</div>
+<div id="rows"></div>
+<div class="row"><button class="chip" id="add" type="button">+ Add another product</button><button class="btn main" id="go" type="button">Compare products</button><button class="chip" id="saveProducts" type="button" title="Save these products so they are pre-filled next time with empty prices">💾 Save products for next time</button></div>
+<div id="saveNotice" class="save-notice" hidden><span>Loaded your saved products. Enter current prices to compare.</span><button type="button" id="clearSaved" class="link-btn">Reset to defaults</button></div>
+<p class="meta">The prices are the ones you type in. Check the live price on Amazon before you buy, because the price shown there at purchase is what you pay.</p>
+</section>
+
+<section id="results" aria-live="polite"></section>
+<section class="panel" id="shop"></section>
+</main>
+
+<footer>
+<p>Privacy: this page works in your browser. The numbers you type are read in your browser and are not sent to or stored by me. When you click a Buy button you go to Amazon.in, which may set its own cookies and collect its own data.</p>
+<p>Results depend entirely on the numbers you enter. Always check the label on the product you receive.</p>
+</footer>
+</div>
+
+<div class="modal-overlay" id="authModal" hidden>
+<div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+<h2 id="authTitle">Welcome to Protein Price Calculator</h2>
+<p class="meta" style="margin:0 0 16px">Enter your phone number, email address, or both to use the calculator and save your products.</p>
+<form id="authForm" novalidate>
+<div style="margin-bottom:12px">
+<label class="f" for="authPhone">Phone number <span class="meta">(optional if email is entered)</span></label>
+<input type="tel" id="authPhone" placeholder="e.g. 9876543210" autocomplete="tel">
+</div>
+<div style="margin-bottom:16px">
+<label class="f" for="authEmail">Email address <span class="meta">(optional if phone is entered)</span></label>
+<input type="email" id="authEmail" placeholder="e.g. name@example.com" autocomplete="email">
+</div>
+<p class="warn" id="authErr" hidden style="margin:0 0 12px"></p>
+<button class="btn main" style="width:100%" type="submit">Continue to calculator</button>
+<p class="meta" style="font-size:.78rem;margin:12px 0 0;text-align:center">You only need to enter this once per device.</p>
+</form>
+</div>
+</div>
+
+<script>
+/* ===== OPTIONAL: GOOGLE FORM LEAD CAPTURE =====
+1. Create a Google Form with 2 short-answer questions: "Phone" and "Email".
+2. Link the Form to a Google Sheet (Responses tab -> Link to Sheets).
+3. From the pre-filled link, copy the formResponse URL and entry IDs:
+*/
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfuiQVQgKhAgtXF-t0DtAjWkSULlWmejhlR2SrKF_f1gJBQrw/formResponse';
+const ENTRY_PHONE = 'entry.173170474';
+const ENTRY_EMAIL = 'entry.1490251573';
+
+/* ===== SET THESE TWO THINGS ===== */
+const TAG='';   // your Amazon.in tracking ID, for example 'yourname-21'
+const LINKS={}; // optional: paste exact links from Associates Central per type, for example LINKS.whey='https://amzn.to/xxxx'
+/* Buttons show as "link coming soon" until TAG or a LINKS entry is set. */
+const CATS=[
+{key:'whey',label:'whey protein',query:'whey protein powder'},
+{key:'plant',label:'plant protein',query:'plant protein powder'},
+{key:'yeast',label:'yeast protein',query:'yeast protein powder'},
+{key:'isolate',label:'whey isolate',query:'whey protein isolate'},
+{key:'pea',label:'pea protein',query:'pea protein powder'},
+{key:'soy',label:'soy protein',query:'soy protein powder'},
+{key:'casein',label:'casein',query:'casein protein powder'},
+{key:'gainer',label:'mass gainer',query:'mass gainer'}
+];
+
+const $=s=>document.querySelector(s);
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const inr=n=>'₹'+(n>=100?Math.round(n).toLocaleString('en-IN'):n.toFixed(2));
+const inr0=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const cap=t=>t[0].toUpperCase()+t.slice(1);
+const typeName=k=>{const c=CATS.find(c=>c.key===k);return c?cap(c.label):'Other'};
+let uid=0;
+const newRow=()=>({id:++uid,name:'',type:'whey',protein:'',pct:'',scoop:'',pack:'',unit:'kg',servings:'',price:''});
+const S={rows:[newRow(),newRow()],pm:'g',by:'ps',view:innerWidth<700?'list':'side',spd:1,show:false};
+
+const U={g:1,kg:1000,lb:453.592};
+const proOf=r=>S.pm==='g'?+r.protein:(+r.pct/100)*(+r.scoop);
+
+function calcServingsFromPack(pack,unit,scoop){
+ const pk=(+pack||0)*U[unit||'g'],sc=+scoop||0;
+ if(pk>0&&sc>0){
+  const raw=pk/sc;
+  if(Math.abs(raw-Math.round(raw))<1e-4)return String(Math.round(raw));
+  const r1=Math.round(raw*10)/10;
+  if(Math.abs(raw-r1)<1e-4)return String(r1);
+  return String(Math.round(raw));
+ }
+ return null;
+}
+
+function calcRow(r){
+ const scoop=+r.scoop||0,price=+r.price,pk=(+r.pack||0)*U[r.unit||'g'],pro=proOf(r);
+ const autoN=calcServingsFromPack(r.pack,r.unit,r.scoop);
+ const n=+r.servings||(autoN?+autoN:0);
+ if(!(pro>0&&n>0&&price>0)||(scoop>0&&pro>scoop))return null;
+ const ps=price/n,pg=ps/pro;
+ return{n,ps,pg,p25:pg*25,pct:scoop>0?pro/scoop*100:null,pro,price};
+}
+const getItems=()=>S.rows.map((r,i)=>{const c=calcRow(r);return c?Object.assign(c,{name:r.name.trim()||'Product '+(i+1),type:r.type}):null}).filter(Boolean);
+
+function linkFor(c){return LINKS[c.key]||(TAG?`https://www.amazon.in/s?k=${encodeURIComponent(c.query)}&tag=${encodeURIComponent(TAG)}`:'')}
+function buy(c,text,main){
+ const h=linkFor(c);
+ return h?`<a class="btn${main?' main':''}" href="${esc(h)}" target="_blank" rel="sponsored noopener">${text}</a>`
+ :`<span class="btn off" aria-disabled="true" title="Link coming soon">${text}</span>`;
+}
+
+const field=(r,k,l,ph)=>`<div><label class="f" for="${k}${r.id}">${l}</label><input type="number" id="${k}${r.id}" data-k="${k}" inputmode="decimal" min="0" step="any" value="${esc(r[k])}" placeholder="e.g. ${ph}"></div>`;
+const packField=r=>`<div><label class="f" for="pack${r.id}">Pack size</label><div class="row" style="flex-wrap:nowrap"><input type="number" id="pack${r.id}" data-k="pack" inputmode="decimal" min="0" step="any" value="${esc(r.pack)}" placeholder="e.g. 1"><select data-k="unit" aria-label="Pack size unit" style="width:84px">${['g','kg','lb'].map(u=>`<option${r.unit===u?' selected':''}>${u}</option>`).join('')}</select></div></div>`;
+function rowsHTML(){
+ $('#rows').innerHTML=S.rows.map((r,i)=>{
+  const g=S.pm==='g',moreOpen=(g&&r.scoop)||r.pack;
+  return `<div class="prod" data-row="${r.id}">
+<div class="rh"><b>Product ${i+1}</b>${S.rows.length>1?`<button class="chip" type="button" data-rm="${r.id}" aria-label="Remove product ${i+1}">Remove</button>`:''}</div>
+<div class="fields">
+<div class="w2"><label class="f" for="nm${r.id}">Name (optional)</label><input type="text" id="nm${r.id}" data-k="name" value="${esc(r.name)}" placeholder="e.g. brand and flavour"></div>
+<div><label class="f" for="ty${r.id}">Type</label><select id="ty${r.id}" data-k="type">${CATS.map(c=>`<option value="${c.key}"${r.type===c.key?' selected':''}>${cap(c.label)}</option>`).join('')}<option value="other"${r.type==='other'?' selected':''}>Other</option></select></div>
+${g?field(r,'protein','Protein per scoop (g)','24'):field(r,'pct','Protein %','78')+field(r,'scoop','Serve size (g)','31')}
+${field(r,'servings','No. of servings per pack','33')}${field(r,'price','Pack price you see (₹)','2499')}
+</div>
+<details class="more"${moreOpen?' open':''}><summary>More details (optional)</summary><div class="fields">${g?field(r,'scoop','Serve size (g)','31'):''}${packField(r)}</div><p class="meta" style="margin:6px 0 0">Entering pack size and serve size calculates no. of servings automatically.</p></details>
+<p class="warn" id="w${r.id}" hidden>Protein per scoop can’t be more than the serve size. Please check the numbers.</p></div>`}).join('');
+}
+
+function renderResults(){
+ const box=$('#results');
+ if(!S.show){box.innerHTML='';return}
+ const items=getItems();
+ if(items.length<2){
+  box.innerHTML=`<div class="panel"><h2>2. Your comparison</h2><p class="meta" style="margin:0">${items.length?'Add one more product to see which is cheaper and how much you save.':'Fill in price, no. of servings and protein for at least two products to compare them.'}</p></div>`;return;
+ }
+ const k=S.by,unit=k==='ps'?'per scoop':'per 25 g protein';
+ const sorted=[...items].sort((a,b)=>a[k]-b[k]),best=sorted[0],worst=sorted[sorted.length-1];
+ const avg=items.reduce((s,x)=>s+x.pro,0)/items.length;
+ const spend=x=>k==='ps'?x.ps*S.spd:x.pg*S.spd*avg;
+ sorted.forEach(x=>{const d=Math.max(0,spend(worst)-spend(x));x.sm=d*30;x.sy=d*365});
+ const same=worst[k]-best[k]<1e-9;
+ const bs=[...items].sort((a,b)=>a.ps-b.ps)[0],bp=[...items].sort((a,b)=>a.p25-b.p25)[0];
+ const cat=CATS.find(c=>c.key===best.type)||{key:'other',label:'protein',query:'protein powder'};
+ const mx=f=>Math.max(...items.map(x=>x[f])),mn=f=>Math.min(...items.map(x=>x[f]));
+ const pcts=items.filter(x=>x.pct!=null).map(x=>x.pct);
+ const hi=(v,t)=>Math.abs(v-t)<1e-9?' class="best"':'';
+ const dd=(l,v,c)=>`<div><dt>${l}</dt><dd${c||''}>${v}</dd></div>`;
+ const saveTxt=x=>same?'Same cost':x===worst?'Most expensive, the baseline for savings':`Saves <b>${inr0(x.sm)}</b> a month and <b>${inr0(x.sy)}</b> a year`;
+ const rk=i=>i===0&&!same?'Best value':'#'+(i+1);
+ const cols=`<div class="cols">${sorted.map((x,i)=>`<div class="pc${i===0&&!same?' top':''}"><div class="rk">${rk(i)}</div><h3>${esc(x.name)}</h3><div class="meta">${typeName(x.type)}</div>
+<div class="big">${inr(x[k])}<small>${unit}</small></div>
+<dl>${dd('Per scoop',inr(x.ps),hi(x.ps,mn('ps')))}${dd('Per 25 g protein',inr(x.p25),hi(x.p25,mn('p25')))}${dd('Protein per scoop',x.pro.toFixed(0)+' g',hi(x.pro,mx('pro')))}${dd('Protein %',x.pct==null?'—':x.pct.toFixed(0)+'%',x.pct!=null&&pcts.length>1?hi(x.pct,Math.max(...pcts)):'')}${dd('No. of servings',x.n.toFixed(0))}${dd('Pack price',inr(x.price))}</dl>
+<div class="save">${saveTxt(x)}</div></div>`).join('')}</div>`;
+ const list=`<ol class="rank">${sorted.map((x,i)=>`<li class="lrow"><div class="lt"><span class="rk">${rk(i)}</span><b>${esc(x.name)}</b><span class="meta">${typeName(x.type)}</span><span class="lv">${inr(x[k])}<small>${unit}</small></span></div>
+<div class="track" aria-hidden="true"><div class="fill${i===0&&!same?' best':''}" style="width:${Math.max(6,x[k]/worst[k]*100)}%"></div></div>
+<div class="ls">${saveTxt(x)} · ${x.pro.toFixed(0)} g protein per scoop · ${x.n.toFixed(0)} servings per pack</div></li>`).join('')}</ol>`;
+ const seg=(a,list)=>`<div class="seg" role="group">${list.map(([v,l])=>`<button type="button" data-${a}="${v}" aria-pressed="${S[a]===v}">${l}</button>`).join('')}</div>`;
+ box.innerHTML=`<div class="panel">
+<div class="row" style="justify-content:space-between"><h2 style="margin:0">2. Your comparison</h2>
+<div class="row">${seg('by',[['ps','Cost per scoop'],['p25','Cost per 25 g protein']])}${seg('view',[['side','Side by side'],['list','Top to bottom']])}</div></div>
+<div class="verdict"><div><div class="vk">${same?'These cost the same':'Best value for you'}</div><div class="vn">${esc(best.name)}</div>
+<div>${inr(best[k])} ${unit} · ${k==='ps'?inr(best.p25)+' per 25 g protein':inr(best.ps)+' per scoop'}</div>
+${same?'':`<div>You save about <b>${inr0(best.sm)}</b> a month and <b>${inr0(best.sy)}</b> a year compared with ${esc(worst.name)}.</div>`}</div>
+${buy(cat,'Buy '+cat.label+' on Amazon now')}</div>
+${k==='ps'&&bs!==bp?`<p class="note">Heads up: ${esc(bs.name)} is cheaper per scoop, but ${esc(bp.name)} gives you more protein for your money. Switch to “Cost per 25 g protein” for a fair comparison.</p>`:''}
+${S.view==='side'?cols:list}
+<p class="meta">Savings are compared with the most expensive option, at ${S.spd} scoop${S.spd>1?'s':''} a day, 30 days a month and 365 days a year${k==='p25'?` (about ${Math.round(S.spd*avg)} g of protein a day)`:''}.</p></div>`;
+}
+
+function renderShop(){
+ $('#shop').innerHTML=`<h2>Ready to buy? Pick your protein type</h2>
+<p class="note" style="margin-top:0"><b>These are Amazon affiliate links.</b> As an Amazon Associate I earn from qualifying purchases. You pay the same price.</p>
+<div class="shopgrid">${CATS.map((c,i)=>buy(c,'Buy '+c.label+' on Amazon',i<3)).join('')}</div>`;
+}
+
+function showToast(msg){
+ let t=$('#calcToast');
+ if(!t){
+  t=document.createElement('div');
+  t.id='calcToast';
+  t.className='toast';
+  document.body.appendChild(t);
+ }
+ t.textContent=msg;
+ t.style.opacity='1';
+ t.hidden=false;
+ clearTimeout(t._tm);
+ t._tm=setTimeout(()=>{
+  t.style.opacity='0';
+  setTimeout(()=>{t.hidden=true},200);
+ },2500);
+}
+
+function getViewerUser(){
+ try{
+  const u=localStorage.getItem('protein_calc_user');
+  return u?JSON.parse(u):null;
+ }catch(e){return null}
+}
+
+function updateAuthUI(){
+ const u=getViewerUser();
+ const modal=$('#authModal');
+ const userPill=$('#userPill');
+ const userIdent=$('#userIdent');
+ if(u&&(u.phone||u.email)){
+  if(modal)modal.hidden=true;
+  if(userPill){
+   userPill.hidden=false;
+   userIdent.textContent=u.phone||u.email;
+  }
+ }else{
+  if(modal)modal.hidden=false;
+  if(userPill)userPill.hidden=true;
+ }
+}
+
+function saveProductsToStorage(){
+ const list=S.rows.map(r=>({
+  name:r.name,
+  type:r.type,
+  protein:r.protein,
+  pct:r.pct,
+  scoop:r.scoop,
+  pack:r.pack,
+  unit:r.unit,
+  servings:r.servings
+ }));
+ try{
+  localStorage.setItem('protein_calc_saved_products',JSON.stringify({pm:S.pm,rows:list}));
+  showToast('✓ Saved! Products will load on refresh with blank prices.');
+  showSavedNotice(true);
+ }catch(e){
+  alert('Could not save products to browser storage.');
+ }
+}
+
+function loadSavedProducts(){
+ try{
+  const raw=localStorage.getItem('protein_calc_saved_products');
+  if(!raw)return false;
+  const parsed=JSON.parse(raw);
+  if(parsed&&parsed.rows&&parsed.rows.length){
+   uid=0;
+   S.pm=parsed.pm||'g';
+   S.rows=parsed.rows.map(r=>Object.assign(newRow(),r,{price:''}));
+   return true;
+  }
+ }catch(e){}
+ return false;
+}
+
+function showSavedNotice(show){
+ const notice=$('#saveNotice');
+ if(notice)notice.hidden=!show;
+}
+
+document.addEventListener('click',e=>{
+ const t=e.target.closest('[data-pm],[data-by],[data-view],[data-rm],#add,#go,#saveProducts,#clearSaved,#signOutBtn');if(!t)return;
+ if(t.dataset.pm){S.pm=t.dataset.pm;document.querySelectorAll('[data-pm]').forEach(b=>b.setAttribute('aria-pressed',b===t));rowsHTML();renderResults()}
+ else if(t.dataset.by){S.by=t.dataset.by;renderResults()}
+ else if(t.dataset.view){S.view=t.dataset.view;renderResults()}
+ else if(t.dataset.rm){S.rows=S.rows.filter(r=>r.id!==+t.dataset.rm);rowsHTML();renderResults()}
+ else if(t.id==='add'){const r=newRow();S.rows.push(r);rowsHTML();renderResults();const n=$('#nm'+r.id);if(n)n.focus()}
+ else if(t.id==='go'){S.show=true;renderResults();$('#results').scrollIntoView({block:'start'})}
+ else if(t.id==='saveProducts'){saveProductsToStorage()}
+ else if(t.id==='clearSaved'){
+  if(confirm('Clear saved products and reset to defaults?')){
+   localStorage.removeItem('protein_calc_saved_products');
+   uid=0;
+   S.rows=[newRow(),newRow()];
+   rowsHTML();
+   renderResults();
+   showSavedNotice(false);
+   showToast('Saved products cleared.');
+  }
+ }
+ else if(t.id==='signOutBtn'){
+  if(confirm('Sign out of this device?')){
+   localStorage.removeItem('protein_calc_user');
+   updateAuthUI();
+  }
+ }
+});
+
+$('#authForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const phone=$('#authPhone').value.trim();
+ const email=$('#authEmail').value.trim();
+ const errEl=$('#authErr');
+
+ if(!phone && !email){
+  errEl.textContent='Please enter a phone number or an email address (or both).';
+  errEl.hidden=false;
+  return;
+ }
+ if(phone && !/^\+?[\d\s\-()]{7,15}$/.test(phone)){
+  errEl.textContent='Please enter a valid phone number.';
+  errEl.hidden=false;
+  return;
+ }
+ if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+  errEl.textContent='Please enter a valid email address.';
+  errEl.hidden=false;
+  return;
+ }
+ errEl.hidden=true;
+
+ const user={phone,email,date:new Date().toISOString()};
+ try{
+  localStorage.setItem('protein_calc_user',JSON.stringify(user));
+ }catch(ex){}
+
+ if(GOOGLE_FORM_URL && (ENTRY_PHONE || ENTRY_EMAIL)){
+  const fd=new FormData();
+  if(ENTRY_PHONE && phone) fd.append(ENTRY_PHONE,phone);
+  if(ENTRY_EMAIL && email) fd.append(ENTRY_EMAIL,email);
+  try{
+   fetch(GOOGLE_FORM_URL,{method:'POST',mode:'no-cors',body:fd}).catch(()=>{});
+  }catch(ex){}
+ }
+
+ updateAuthUI();
+ showToast('Signed in successfully!');
+});
+
+function onRowInput(e){
+ const k=e.target.dataset.k,row=e.target.closest('[data-row]');if(!k||!row)return;
+ const r=S.rows.find(x=>x.id===+row.dataset.row);if(!r)return;
+ r[k]=e.target.value;
+ if(k==='scoop'||k==='pack'||k==='unit'){
+  const autoN=calcServingsFromPack(r.pack,r.unit,r.scoop);
+  if(autoN!=null){
+   r.servings=autoN;
+   const servEl=$('#servings'+r.id);
+   if(servEl)servEl.value=autoN;
+  }
+ }
+ const s=+r.scoop;$('#w'+r.id).hidden=!(s>0&&proOf(r)>s);
+ if(S.show)renderResults();
+}
+$('#rows').addEventListener('input',onRowInput);
+$('#rows').addEventListener('change',onRowInput);
+$('#spd').addEventListener('change',e=>{S.spd=+e.target.value;renderResults()});
+
+const hasSaved=loadSavedProducts();
+document.querySelectorAll('[data-pm]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pm===S.pm));
+rowsHTML();
+renderShop();
+updateAuthUI();
+if(hasSaved){
+ showSavedNotice(true);
+}
+</script>
+</body>
+</html>
