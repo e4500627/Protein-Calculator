@@ -123,7 +123,7 @@ footer{color:var(--mute);font-size:.85rem;padding:12px 0 40px}
 </main>
 
 <footer>
-<p>Privacy: this page works in your browser. The numbers you type are read in your browser and are not sent to or stored by me. When you click a Buy button you go to Amazon.in, which may set its own cookies and collect its own data.</p>
+<p><b>Privacy:</b> The calculator runs in your browser. The prices and product details you type are not sent to me; if you save products, they are kept only in your own browser. If you choose to leave your phone number or email (optional), it is sent to a private Google Sheet that only I can see and used only to send you updates about protein prices and new videos. I don't sell or share it. To have it deleted, message me via the YouTube channel @Stillfiguringitoutwithadi. When you click a Buy button you go to Amazon.in, which may set its own cookies and collect its own data under Amazon's privacy notice.</p>
 <p>Results depend entirely on the numbers you enter. Always check the label on the product you receive.</p>
 </footer>
 </div>
@@ -131,7 +131,7 @@ footer{color:var(--mute);font-size:.85rem;padding:12px 0 40px}
 <div class="modal-overlay" id="authModal" hidden>
 <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
 <h2 id="authTitle">Welcome to Protein Price Calculator</h2>
-<p class="meta" style="margin:0 0 16px">Enter your phone number, email address, or both to use the calculator and save your products.</p>
+<p class="meta" style="margin:0 0 16px">Want updates on protein price drops and new videos? Leave your phone number or email. This is optional, and the calculator works either way.</p>
 <form id="authForm" novalidate>
 <div style="margin-bottom:12px">
 <label class="f" for="authPhone">Phone number <span class="meta">(optional if email is entered)</span></label>
@@ -141,9 +141,14 @@ footer{color:var(--mute);font-size:.85rem;padding:12px 0 40px}
 <label class="f" for="authEmail">Email address <span class="meta">(optional if phone is entered)</span></label>
 <input type="email" id="authEmail" placeholder="e.g. name@example.com" autocomplete="email">
 </div>
+<label style="display:flex;gap:8px;align-items:flex-start;font-size:.85rem;margin:0 0 14px;cursor:pointer">
+<input type="checkbox" id="authConsent" style="width:auto;margin-top:3px">
+<span>I agree that Aditya can store my phone/email in a private Google Sheet and use it only to send me updates about protein prices and new videos. I can ask for it to be deleted any time via the YouTube channel @Stillfiguringitoutwithadi.</span>
+</label>
 <p class="warn" id="authErr" hidden style="margin:0 0 12px"></p>
-<button class="btn main" style="width:100%" type="submit">Continue to calculator</button>
-<p class="meta" style="font-size:.78rem;margin:12px 0 0;text-align:center">You only need to enter this once per device.</p>
+<button class="btn main" style="width:100%" type="submit">Save my details &amp; continue</button>
+<button class="btn" style="width:100%;margin-top:8px" type="button" id="authSkip">Skip, just use the calculator</button>
+<p class="meta" style="font-size:.78rem;margin:12px 0 0;text-align:center">We'll only ask once per device.</p>
 </form>
 </div>
 </div>
@@ -334,11 +339,11 @@ function updateAuthUI(){
  const modal=$('#authModal');
  const userPill=$('#userPill');
  const userIdent=$('#userIdent');
- if(u&&(u.phone||u.email)){
+ if(u&&(u.phone||u.email||u.skipped)){
   if(modal)modal.hidden=true;
   if(userPill){
-   userPill.hidden=false;
-   userIdent.textContent=u.phone||u.email;
+   userPill.hidden=!(u.phone||u.email);
+   userIdent.textContent=u.phone||u.email||'';
   }
  }else{
   if(modal)modal.hidden=false;
@@ -413,8 +418,8 @@ document.addEventListener('click',e=>{
   S.show=true;
   renderResults();
   setTimeout(()=>{
-   const shopEl=$('#shop');
-   if(shopEl)shopEl.scrollIntoView({behavior:'smooth'});
+   const resEl=$('#results');
+   if(resEl)resEl.scrollIntoView({behavior:'smooth'});
   },100);
  }
  else if(t.id==='saveProducts'){saveProductsToStorage()}
@@ -462,6 +467,11 @@ $('#authForm').addEventListener('submit',e=>{
   errEl.hidden=false;
   return;
  }
+ if(!$('#authConsent').checked){
+  errEl.textContent='Please tick the box to agree, or tap "Skip" to use the calculator without sharing details.';
+  errEl.hidden=false;
+  return;
+ }
  errEl.hidden=true;
 
  const user={phone,email,date:new Date().toISOString()};
@@ -479,7 +489,14 @@ $('#authForm').addEventListener('submit',e=>{
  }
 
  updateAuthUI();
- showToast('Signed in successfully!');
+ showToast('Thanks! Details saved.');
+});
+
+$('#authSkip').addEventListener('click',()=>{
+ try{
+  localStorage.setItem('protein_calc_user',JSON.stringify({skipped:true,date:new Date().toISOString()}));
+ }catch(ex){}
+ $('#authModal').hidden=true;
 });
 
 function onRowInput(e){
