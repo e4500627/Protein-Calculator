@@ -6,17 +6,17 @@
 <title>Which protein is really cheaper? Compare scoops, savings and cost per gram</title>
 <meta name="description" content="Compare protein powders, prices, servings, and cost per gram to find out which one saves you the most.">
 <style>
-:root{--bg:#ffffff;--card:#fafafa;--ink:#111111;--mute:#666666;--line:#e0e0e0;--acc:#111111;--accink:#ffffff;--best:#111111;--bestink:#ffffff;--good:#111111;--warn:#f2f2f2;--warnink:#333333;--r:14px}
-@media(prefers-color-scheme:dark){:root{--bg:#0c0c0c;--card:#181818;--ink:#f4f4f4;--mute:#999999;--line:#2a2a2a;--acc:#ffffff;--accink:#0c0c0c;--best:#202020;--bestink:#ffffff;--good:#ffffff;--warn:#222222;--warnink:#d0d0d0}}
+:root{--bg:#ffffff;--card:#fafafa;--ink:#111111;--mute:#666666;--line:#e0e0e0;--acc:#111111;--accink:#ffffff;--warn:#f2f2f2;--warnink:#333333;--r:14px;
+--win:#15803d;--winink:#ffffff;--winbg:#eaf7ee;--lose:#c62828;--loseink:#ffffff;--losebg:#fdecec;--mid:#b45309;--midbg:#fff4e0}
+@media(prefers-color-scheme:dark){:root{--bg:#0c0c0c;--card:#181818;--ink:#f4f4f4;--mute:#999999;--line:#2a2a2a;--acc:#ffffff;--accink:#0c0c0c;--warn:#222222;--warnink:#d0d0d0;
+--win:#4ade80;--winink:#04210f;--winbg:#0f2618;--lose:#f87171;--loseink:#2a0707;--losebg:#2c1111;--mid:#fbbf24;--midbg:#2a200c}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
 .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
-header{padding:26px 0 6px}
 h1{font-size:clamp(1.7rem,4.5vw,2.6rem);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;font-weight:800}
 h2{font-size:1.2rem;margin:0 0 12px}
 h3{margin:0;font-size:1.05rem}
-.sub{color:var(--mute);margin:0;max-width:60ch}
 .meta{color:var(--mute);font-size:.88rem}
 .note{background:var(--warn);color:var(--warnink);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.92rem;margin:14px 0}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:14px}
@@ -24,55 +24,98 @@ h3{margin:0;font-size:1.05rem}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 label.f{display:block;font-size:.88rem;color:var(--mute);margin-bottom:4px}
 input,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+input[type=checkbox]{width:auto}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
 .seg button{border:0;background:var(--card);color:var(--ink);padding:7px 14px;font:inherit;cursor:pointer}
 .seg button[aria-pressed=true]{background:var(--acc);color:var(--accink);font-weight:600}
 .chip{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;border-radius:999px;font:inherit;cursor:pointer}
 .chip:hover{border-color:var(--ink)}
+.chip.sm{padding:5px 12px;font-size:.85rem}
 .btn{display:inline-block;text-align:center;text-decoration:none;padding:10px 16px;border-radius:10px;font:inherit;font-weight:600;border:1px solid var(--acc);color:var(--acc);background:transparent;cursor:pointer;transition:opacity .15s}
 .btn:hover{opacity:.85}
 .btn.main{background:var(--acc);color:var(--accink)}
 .btn.off{opacity:.4;border-style:dashed;cursor:not-allowed}
 .prod{border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0;background:var(--bg)}
-.rh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.rh{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.loadsel{width:auto;max-width:230px;padding:6px 10px;font-size:.88rem}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
 @media(min-width:680px){.fields{grid-template-columns:1.3fr 1fr 1fr 1fr}}
-.more-fields{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))!important}
-.warn{color:#c0392b;font-size:.88rem;margin:8px 0 0}
-.verdict{background:var(--best);color:var(--bestink);border-radius:var(--r);padding:18px 20px;border:1px solid var(--line);margin:14px 0}
-.vk{font-size:.85rem;font-weight:600}.vn{font-size:1.5rem;font-weight:800;letter-spacing:-.01em}
-.cols{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(210px,1fr);gap:12px;overflow-x:auto;padding-bottom:6px}
+.more-fields{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important}
+.qp{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.qp button{font:inherit;font-size:.78rem;padding:3px 9px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.qp button:hover{border-color:var(--ink)}
+.qp button.on{background:var(--acc);color:var(--accink);border-color:var(--acc)}
+.qp button.rec{border-color:var(--win);color:var(--win);font-weight:700}
+.qp button.rec.on{background:var(--win);color:var(--winink);border-color:var(--win)}
+.warn{color:var(--lose);font-size:.88rem;margin:8px 0 0}
+.rowfoot{display:flex;justify-content:flex-end;margin-top:10px}
+.more{margin:10px 0 0}
+.more summary{cursor:pointer;font-weight:600;font-size:.92rem;margin-bottom:8px}
+/* saved products */
+#lib{border:1px dashed var(--line);border-radius:12px;padding:12px;margin:12px 0;background:var(--bg)}
+.liblist{list-style:none;margin:0 0 10px;padding:0;max-height:260px;overflow:auto}
+.liblist li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
+.liblist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;flex:1}
+.liblist input{margin-top:4px}
+.liblist small{display:block;color:var(--mute);font-size:.8rem}
+/* daily intake + question */
+.daily{border-top:1px solid var(--line);margin-top:14px;padding-top:14px}
+.ask{border:2px solid var(--mid);background:var(--midbg);border-radius:12px;padding:12px 14px;margin:0 0 12px}
+.pulse{box-shadow:0 0 0 4px var(--mid);border-color:var(--mid)}
+/* results */
+.verdict{background:var(--winbg);color:var(--ink);border:2px solid var(--win);border-radius:var(--r);padding:18px 20px;margin:14px 0}
+.vk{font-size:.85rem;font-weight:700;color:var(--win)}
+.vn{font-size:1.6rem;font-weight:800;letter-spacing:-.01em;color:var(--win)}
+.vsave{margin-top:8px;font-size:1.02rem}
+.verdict.same{background:var(--card);border-color:var(--line)}.verdict.same .vk,.verdict.same .vn{color:var(--ink)}
+.eqh{margin:14px 0 6px;font-weight:700}
+.eq{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.eq>div{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.9rem;line-height:1.3}
+.eq b{display:block;font-size:1.25rem}
+.eq small{display:block;color:var(--mute);font-size:.78rem;margin-top:2px}
+.ei{font-size:1.3rem}
+.cols{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);gap:12px;overflow-x:auto;padding:4px 2px 6px}
 .pc{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg)}
-.pc.top{border:2px solid var(--acc)}
-.rk{display:inline-block;font-size:.78rem;font-weight:700;color:var(--accink);background:var(--acc);padding:2px 8px;border-radius:999px;margin-bottom:6px}
+.pc.win{border:2px solid var(--win);background:var(--winbg)}
+.pc.lose{border:2px solid var(--lose)}
+.pc.mid{border-color:var(--line)}
+.rk{display:inline-block;font-size:.78rem;font-weight:700;color:var(--ink);background:var(--line);padding:2px 9px;border-radius:999px;margin-bottom:6px}
+.rk.win{background:var(--win);color:var(--winink)}
+.rk.lose{background:var(--lose);color:var(--loseink)}
 .big{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:10px 0}
+.pc.win .big{color:var(--win)}.pc.lose .big{color:var(--lose)}
 .big small{display:block;font-size:.78rem;font-weight:500;letter-spacing:0;color:var(--mute);margin-top:3px}
+.xtra{border-radius:10px;padding:8px 10px;margin:0 0 10px;font-size:.92rem;background:var(--card);border:1px solid var(--line)}
+.xtra small{color:var(--mute);font-size:.78rem}
+.xtra.win{background:var(--bg);border-color:var(--win);color:var(--win)}
+.xtra.lose{background:var(--losebg);border-color:var(--lose);color:var(--lose)}
+.xtra.mid{background:var(--midbg);border-color:var(--mid);color:var(--mid)}
+.xtra b{font-size:1.08rem}
 dl{margin:0}dl>div{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-top:1px solid var(--line);font-size:.92rem}
 dt{color:var(--mute)}dd{margin:0;font-weight:600}
-dd.best{background:var(--line);color:var(--ink);border-radius:6px;padding:0 6px}
-.save{margin-top:10px;padding:10px;border-radius:10px;background:var(--card);font-size:.92rem}
+dd.best{background:var(--win);color:var(--winink);border-radius:6px;padding:0 6px}
+dd.worst{background:var(--losebg);color:var(--lose);border-radius:6px;padding:0 6px}
 .rank{list-style:none;margin:0;padding:0}
-.lrow{padding:12px 0;border-top:1px solid var(--line)}
+.lrow{padding:12px;border-top:1px solid var(--line);border-radius:10px}
+.lrow.win{background:var(--winbg);border:2px solid var(--win);margin-bottom:6px}
+.lrow.lose{border:2px solid var(--lose);margin-top:6px}
 .lt{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
 .lv{margin-left:auto;font-weight:800;font-size:1.25rem}.lv small{font-size:.75rem;font-weight:500;color:var(--mute);margin-left:4px}
+.lrow.win .lv{color:var(--win)}.lrow.lose .lv{color:var(--lose)}
 .track{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0}
-.fill{height:100%;background:#888;border-radius:99px}.fill.best{background:var(--acc)}
+.fill{height:100%;background:var(--mid);border-radius:99px}.fill.win{background:var(--win)}.fill.lose{background:var(--lose)}
 .ls{font-size:.9rem;color:var(--mute)}
 .shopgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
 footer{color:var(--mute);font-size:.85rem;padding:12px 0 40px}
-.more{margin:0 0 10px}
-.more summary{cursor:pointer;font-weight:600;font-size:.92rem;margin-bottom:8px}
 .top-bar{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;padding:26px 0 6px}
 .user-pill{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;color:var(--mute)}
 .link-btn{background:none;border:none;color:var(--ink);font:inherit;cursor:pointer;padding:0;text-decoration:underline;font-size:inherit}
 .link-btn:hover{opacity:.7}
-.save-notice{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.88rem;margin:10px 0}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px;z-index:9999}
 .modal-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);max-width:440px;width:100%;padding:26px;box-shadow:0 16px 40px rgba(0,0,0,.35)}
 .modal-card h2{margin:0 0 6px;font-size:1.35rem;font-weight:800}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:.9rem;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:9999;transition:opacity .2s;pointer-events:none}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:.9rem;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:9999;transition:opacity .2s;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
 [hidden]{display:none!important}
-@media(max-width:640px){.w2{grid-column:span 1}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
@@ -92,29 +135,34 @@ footer{color:var(--mute);font-size:.85rem;padding:12px 0 40px}
 <main>
 <section class="panel">
 <h2>1. Add your products</h2>
-<p class="meta" style="margin-top:-6px">Enter the price, no. of servings &amp; protein per serving.</p>
-<div class="row" style="justify-content:space-between;gap:12px;align-items:flex-end">
+<p class="meta" style="margin-top:-6px">Enter the price, no. of servings &amp; protein per serving. Tap the quick picks to fill faster.</p>
 <div><label class="f">Protein input mode</label>
 <div class="seg" role="group" aria-label="What do you know?">
 <button type="button" data-pm="g" aria-pressed="true">I know protein per scoop (g)</button>
 <button type="button" data-pm="pct" aria-pressed="false">I know protein %</button>
 </div></div>
-<div class="row" style="gap:10px;align-items:flex-end">
-<div><label class="f">Daily intake by</label>
+
+<div id="lib" hidden></div>
+<div id="rows"></div>
+<div class="row"><button class="chip" id="add" type="button">+ Add another product</button><button class="chip" id="saveAll" type="button" title="Save every named product to your list in this browser">💾 Save all to my products</button></div>
+
+<div class="daily">
+<h3 style="margin:0 0 10px">How much do you take daily?</h3>
+<div id="askBox" class="ask" hidden><b>One quick question 👇</b><p id="askTxt" style="margin:4px 0 6px"></p><button type="button" class="link-btn" id="seeRes">See my comparison ↓</button></div>
+<div class="row" style="gap:14px;align-items:flex-start">
+<div><label class="f">Count my daily intake by</label>
 <div class="seg" role="group" aria-label="Daily intake mode">
 <button type="button" data-dm="scoops" aria-pressed="true">Scoops / day</button>
 <button type="button" data-dm="grams" aria-pressed="false">Grams of protein / day</button>
 </div></div>
-<div id="spdWrap" style="min-width:110px"><label class="f" for="spd">Scoops / day</label>
+<div id="spdWrap" style="min-width:120px"><label class="f" for="spd">Scoops / day</label>
 <select id="spd"><option value="1">1 scoop</option><option value="2">2 scoops</option><option value="3">3 scoops</option><option value="4">4 scoops</option></select></div>
-<div id="gpdWrap" style="min-width:130px" hidden><label class="f" for="gpd">Grams / day</label>
-<input type="number" id="gpd" min="5" max="500" step="5" value="50" placeholder="e.g. 50" list="gpdList">
-<datalist id="gpdList"><option value="25"><option value="30"><option value="50"><option value="75"><option value="100"></datalist></div>
+<div id="gpdWrap" style="min-width:200px" hidden><label class="f" for="gpd">Protein from shakes / day (g)</label>
+<input type="number" id="gpd" min="5" max="500" step="5" value="50" placeholder="e.g. 50" inputmode="numeric">
+<div class="qp" role="group" aria-label="Quick picks"></div></div>
 </div>
 </div>
-<div id="rows"></div>
-<div class="row"><button class="chip" id="add" type="button">+ Add another product</button><button class="btn main" id="go" type="button">Compare products</button><button class="chip" id="saveProducts" type="button" title="Save these products so they are pre-filled next time with empty prices">💾 Save products for next time</button></div>
-<div id="saveNotice" class="save-notice" hidden><span>Loaded your saved products. Enter current prices to compare.</span><button type="button" id="clearSaved" class="link-btn">Reset to defaults</button></div>
+<div class="row" style="margin-top:14px"><button class="btn main" id="go" type="button">Compare products</button></div>
 <p class="meta">The prices are the ones you type in. Check the live price on Amazon before you buy, because the price shown there at purchase is what you pay.</p>
 </section>
 
@@ -124,7 +172,7 @@ footer{color:var(--mute);font-size:.85rem;padding:12px 0 40px}
 
 <footer>
 <p><b>Privacy:</b> The calculator runs in your browser. The prices and product details you type are not sent to me; if you save products, they are kept only in your own browser. If you choose to leave your phone number or email (optional), it is sent to a private Google Sheet that only I can see and used only to send you updates about protein prices and new videos. I don't sell or share it. To have it deleted, message me via the YouTube channel @Stillfiguringitoutwithadi. When you click a Buy button you go to Amazon.in, which may set its own cookies and collect its own data under Amazon's privacy notice.</p>
-<p>Results depend entirely on the numbers you enter. Always check the label on the product you receive.</p>
+<p>Results depend entirely on the numbers you enter. Always check the label on the product you receive. "What the extra money buys" uses approximate prices that vary by city and brand.</p>
 </footer>
 </div>
 
@@ -188,15 +236,36 @@ const CATS=[
 {key:'gainer',label:'Mass gainers',query:'mass gainer'}
 ];
 
+/* ===== QUICK PICKS (edit freely) ===== */
+const QP={
+ protein:[20,22,24,25,26,27,30],   // g protein per scoop
+ pct:[70,75,78,80,85,90],          // protein %
+ scoop:[30,31,33,35,40],           // serving size in g
+ pack:[0.5,1,2,4],                 // pack size in kg
+ gpd:[25,30,50,75,100]             // protein from shakes per day
+};
+
+/* ===== "WHAT THE EXTRA MONEY BUYS" (approx. price RANGES in ₹ — update anytime) =====
+ lo/hi = cheapest and costliest ₹ per unit, step = smallest amount shown, protein = g protein per unit (optional) */
+const EQUIV=[
+ {icon:'🍗',name:'chicken breast',unit:'kg',lo:300,hi:400,step:0.5,protein:230},
+ {icon:'🌱',name:'unflavoured pea protein',unit:'kg',lo:900,hi:1300,step:0.5,protein:800},
+ {icon:'🥚',name:'eggs',unit:'',lo:6,hi:8,step:6,protein:6},
+ {icon:'🫘',name:'soya chunks',unit:'kg',lo:160,hi:240,step:0.5,protein:520},
+ {icon:'🧀',name:'paneer',unit:'kg',lo:380,hi:480,step:0.5,protein:180},
+ {icon:'⚡',name:'tubs of creatine (250 g)',unit:'',lo:600,hi:900,step:1},
+ {icon:'🏋️',name:'months of gym fees',unit:'',lo:800,hi:1500,step:1}
+];
+
 const $=s=>document.querySelector(s);
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const inr=n=>'₹'+(n>=100?Math.round(n).toLocaleString('en-IN'):n.toFixed(2));
 const inr0=n=>'₹'+Math.round(n).toLocaleString('en-IN');
-const cap=t=>t[0].toUpperCase()+t.slice(1);
-const typeName=k=>{const c=CATS.find(c=>c.key===k);return c?cap(c.label):'Other'};
+const round1=n=>Math.round(n*10)/10;
+const fmtG=n=>Number.isInteger(round1(n))?String(round1(n)):round1(n).toFixed(1);
 let uid=0;
 const newRow=()=>({id:++uid,name:'',protein:'',pct:'',scoop:'',pack:'',unit:'kg',servings:'',price:''});
-const S={rows:[newRow(),newRow()],pm:'g',dm:'scoops',spd:1,gpd:50,view:innerWidth<700?'list':'side',show:false};
+const S={rows:[newRow(),newRow()],pm:'g',dm:'scoops',spd:1,gpd:50,view:innerWidth<700?'list':'side',show:false,askedSig:null};
 
 const U={g:1,kg:1000,lb:453.592};
 const proOf=r=>S.pm==='g'?+r.protein:(+r.pct/100)*(+r.scoop);
@@ -214,12 +283,12 @@ function calcServingsFromPack(pack,unit,scoop){
 }
 
 function calcRow(r){
- const scoop=+r.scoop||0,price=+r.price,pk=(+r.pack||0)*U[r.unit||'g'],pro=proOf(r);
+ const scoop=+r.scoop||0,price=+r.price,pro=proOf(r);
  const autoN=calcServingsFromPack(r.pack,r.unit,r.scoop);
  const n=+r.servings||(autoN?+autoN:0);
  if(!(pro>0&&n>0&&price>0)||(scoop>0&&pro>scoop))return null;
  const ps=price/n,pg=ps/pro;
- return{n,ps,pg,p25:pg*25,pct:scoop>0?pro/scoop*100:null,pro,price};
+ return{n,ps,pg,pct:scoop>0?pro/scoop*100:null,pro,price};
 }
 const getItems=()=>S.rows.map((r,i)=>{const c=calcRow(r);return c?Object.assign(c,{name:r.name.trim()||'Product '+(i+1)}):null}).filter(Boolean);
 
@@ -230,22 +299,156 @@ function buy(c,text,main){
  :`<span class="btn off" aria-disabled="true" title="Link coming soon">${text}</span>`;
 }
 
-const field=(r,k,l,ph)=>`<div><label class="f" for="${k}${r.id}">${l}</label><input type="number" id="${k}${r.id}" data-k="${k}" inputmode="decimal" min="0" step="any" value="${esc(r[k])}" placeholder="e.g. ${ph}"></div>`;
-const packField=r=>`<div><label class="f" for="pack${r.id}">Pack size</label><div class="row" style="flex-wrap:nowrap"><input type="number" id="pack${r.id}" data-k="pack" inputmode="decimal" min="0" step="any" value="${esc(r.pack)}" placeholder="e.g. 1"><select data-k="unit" aria-label="Pack size unit" style="width:84px">${['g','kg','lb'].map(u=>`<option${r.unit===u?' selected':''}>${u}</option>`).join('')}</select></div></div>`;
+/* ---------- saved products library ---------- */
+const LIB_KEY='protein_calc_library',PREF_KEY='protein_calc_prefs',OLD_KEY='protein_calc_saved_products';
+let LIB=[];
+const pickFields=p=>({name:p.name||'',protein:p.protein||'',pct:p.pct||'',scoop:p.scoop||'',pack:p.pack||'',unit:p.unit||'kg',servings:p.servings||''});
+function storeLib(){
+ try{localStorage.setItem(LIB_KEY,JSON.stringify(LIB));return true}
+ catch(e){showToast('Could not save. Your browser is blocking storage.');return false}
+}
+function upsertLib(o){
+ const key=o.name.trim().toLowerCase();
+ const found=LIB.find(p=>p.name.trim().toLowerCase()===key);
+ if(found){Object.assign(found,o);return 'updated'}
+ LIB.unshift(Object.assign({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6)},o));
+ return 'added';
+}
+function snapshot(r){
+ const o=pickFields(r),sc=+o.scoop;o.name=o.name.trim();
+ if(S.pm==='g'){if(+o.protein>0&&sc>0)o.pct=String(round1(o.protein/sc*100))}
+ else{if(+o.pct>0&&sc>0)o.protein=String(round1(o.pct*sc/100))}
+ return o;
+}
+function loadLib(){
+ try{const v=JSON.parse(localStorage.getItem(LIB_KEY)||'[]');LIB=Array.isArray(v)?v:[]}catch(e){LIB=[]}
+ // one-time move of products saved by the older version of this page
+ try{
+  const raw=localStorage.getItem(OLD_KEY);
+  if(raw){
+   const p=JSON.parse(raw);
+   (p&&p.rows||[]).forEach((r,i)=>{if(+r.protein>0||+r.pct>0)upsertLib(Object.assign(pickFields(r),{name:(r.name||'').trim()||'Saved product '+(i+1)}))});
+   if(p&&p.pm)S.pm=p.pm;if(p&&p.dm)S.dm=p.dm;if(p&&p.spd)S.spd=+p.spd;if(p&&p.gpd)S.gpd=+p.gpd;
+   if(storeLib())localStorage.removeItem(OLD_KEY);
+  }
+ }catch(e){}
+}
+function savePrefs(){try{localStorage.setItem(PREF_KEY,JSON.stringify({pm:S.pm,dm:S.dm,spd:S.spd,gpd:S.gpd}))}catch(e){}}
+function loadPrefs(){try{const p=JSON.parse(localStorage.getItem(PREF_KEY)||'null');if(p){S.pm=p.pm||S.pm;S.dm=p.dm||S.dm;S.spd=+p.spd||S.spd;S.gpd=+p.gpd||S.gpd}}catch(e){}}
+
+function libDesc(p){
+ const bits=[];
+ if(+p.protein>0)bits.push(fmtG(+p.protein)+' g protein/scoop');
+ else if(+p.pct>0)bits.push(fmtG(+p.pct)+'% protein');
+ if(+p.scoop>0)bits.push(fmtG(+p.scoop)+' g scoop');
+ if(+p.servings>0)bits.push(p.servings+' servings');
+ if(+p.pack>0)bits.push(p.pack+' '+(p.unit||'kg')+' pack');
+ return bits.join(' · ');
+}
+function renderLib(){
+ const box=$('#lib');
+ if(!LIB.length){box.hidden=true;box.innerHTML='';return}
+ box.hidden=false;
+ box.innerHTML=`<div class="rh"><b>📂 My saved products (${LIB.length})</b><button type="button" class="link-btn" data-libsel="all">Select all</button></div>
+<p class="meta" style="margin:-4px 0 6px">Tick the ones you want to compare, then just enter today's prices.</p>
+<ul class="liblist">${LIB.map(p=>`<li><label><input type="checkbox" class="libchk" value="${esc(p.id)}"><span><b>${esc(p.name)}</b><small>${esc(libDesc(p))}</small></span></label><button type="button" class="link-btn" data-libdel="${esc(p.id)}" aria-label="Delete ${esc(p.name)}">Delete</button></li>`).join('')}</ul>
+<button class="btn main" type="button" id="libCompare">Compare selected</button>`;
+}
+function convertRows(to){
+ S.rows.forEach(r=>{const sc=+r.scoop;
+  if(to==='pct'&&+r.protein>0&&sc>0)r.pct=String(round1(r.protein/sc*100));
+  if(to==='g'&&+r.pct>0&&sc>0)r.protein=String(round1(r.pct*sc/100));
+ });
+}
+function setPm(pm){
+ if(pm!==S.pm)convertRows(pm);
+ S.pm=pm;document.querySelectorAll('[data-pm]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pm===pm));savePrefs();
+}
+/* a product saved with only "protein per scoop" can't be used in % mode without a scoop size */
+function fitModeTo(r){
+ if(S.pm==='pct'&&!(+r.pct>0&&+r.scoop>0)&&+r.protein>0){setPm('g');showToast('Switched to "protein per scoop" mode for this product.')}
+ else if(S.pm==='g'&&!(+r.protein>0)&&+r.pct>0&&+r.scoop>0){r.protein=String(round1(r.pct*r.scoop/100))}
+}
+
+/* ---------- product rows ---------- */
+const unitTxt=k=>k==='pct'?'%':k==='pack'?' kg':' g';
+const chips=(r,k)=>QP[k]?`<div class="qp" role="group" aria-label="Quick picks">${QP[k].map(v=>`<button type="button" data-qp="${k}" data-v="${v}" class="${chipOn(r,k,v)?'on':''}">${v}${unitTxt(k)}</button>`).join('')}</div>`:'';
+const chipOn=(r,k,v)=>r[k]!==''&&+r[k]===v&&(k!=='pack'||r.unit==='kg');
+const field=(r,k,l,ph)=>`<div><label class="f" for="${k}${r.id}">${l}</label><input type="number" id="${k}${r.id}" data-k="${k}" inputmode="decimal" min="0" step="any" value="${esc(r[k])}" placeholder="e.g. ${ph}">${chips(r,k)}</div>`;
+const packField=r=>`<div><label class="f" for="pack${r.id}">Pack size</label><div class="row" style="flex-wrap:nowrap"><input type="number" id="pack${r.id}" data-k="pack" inputmode="decimal" min="0" step="any" value="${esc(r.pack)}" placeholder="e.g. 1"><select data-k="unit" id="unit${r.id}" aria-label="Pack size unit" style="width:84px">${['g','kg','lb'].map(u=>`<option${r.unit===u?' selected':''}>${u}</option>`).join('')}</select></div>${chips(r,'pack')}</div>`;
 function rowsHTML(){
+ const opts=LIB.length?`<option value="">📂 Load a saved product…</option>${LIB.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('')}`:'';
  $('#rows').innerHTML=S.rows.map((r,i)=>{
   const g=S.pm==='g',moreOpen=(g&&r.scoop)||r.pack;
   return `<div class="prod" data-row="${r.id}">
-<div class="rh"><b>Product ${i+1}</b>${S.rows.length>1?`<button class="chip" type="button" data-rm="${r.id}" aria-label="Remove product ${i+1}">Remove</button>`:''}</div>
+<div class="rh"><b>Product ${i+1}</b><div class="row" style="gap:8px">${opts?`<select class="loadsel" data-load="${r.id}" aria-label="Load a saved product into product ${i+1}">${opts}</select>`:''}${S.rows.length>1?`<button class="chip sm" type="button" data-rm="${r.id}" aria-label="Remove product ${i+1}">Remove</button>`:''}</div></div>
 <div class="fields">
-<div><label class="f" for="nm${r.id}">Name (optional)</label><input type="text" id="nm${r.id}" data-k="name" value="${esc(r.name)}" placeholder="e.g. brand and flavour"></div>
+<div><label class="f" for="name${r.id}">Name</label><input type="text" id="name${r.id}" data-k="name" value="${esc(r.name)}" placeholder="e.g. brand and flavour"></div>
 ${g?field(r,'protein','Protein per scoop (g)','24'):field(r,'pct','Protein %','78')+field(r,'scoop','Serve size (g)','31')}
 ${field(r,'servings','No. of servings per pack','33')}${field(r,'price','Pack price you see (₹)','2499')}
 </div>
 <details class="more"${moreOpen?' open':''}><summary>More details (optional)</summary><div class="fields more-fields">${g?field(r,'scoop','Serve size (g)','31'):''}${packField(r)}</div><p class="meta" style="margin:6px 0 0">Entering pack size and serve size calculates no. of servings automatically.</p></details>
-<p class="warn" id="w${r.id}" hidden>Protein per scoop can’t be more than the serve size. Please check the numbers.</p></div>`}).join('');
+<p class="warn" id="w${r.id}" hidden>Protein per scoop can’t be more than the serve size. Please check the numbers.</p>
+<div class="rowfoot"><button class="chip sm" type="button" data-saverow="${r.id}">💾 Save to my products</button></div></div>`}).join('');
+ renderGpdChips();
+}
+function refreshChips(rowEl,r){
+ rowEl.querySelectorAll('[data-qp]').forEach(b=>b.classList.toggle('on',chipOn(r,b.dataset.qp,+b.dataset.v)));
+}
+function afterRowChange(r,k){
+ if(k==='scoop'||k==='pack'||k==='unit'){
+  const autoN=calcServingsFromPack(r.pack,r.unit,r.scoop);
+  if(autoN!=null){r.servings=autoN;const s=$('#servings'+r.id);if(s)s.value=autoN}
+ }
+ const sc=+r.scoop,w=$('#w'+r.id);if(w)w.hidden=!(sc>0&&proOf(r)>sc);
+ const rowEl=document.querySelector(`[data-row="${r.id}"]`);if(rowEl)refreshChips(rowEl,r);
+ if(k==='protein'||k==='pct'||k==='scoop'||k==='name')renderGpdChips();
+ if(S.show)renderResults();
+}
+const required=()=>S.pm==='g'?['protein','servings','price']:['pct','scoop','servings','price'];
+/* after a quick pick: jump to the next empty field, or to the daily-protein question when everything is filled */
+function focusNext(r){
+ const order=S.rows.slice(S.rows.indexOf(r)).concat(S.rows.slice(0,S.rows.indexOf(r)));
+ for(const row of order){for(const k of required()){if(!(+row[k]>0)){const el=$('#'+k+row.id);if(el){el.focus();return}}}}
+ if(!checkComplete())$('#go').focus();
 }
 
+/* ---------- "how much protein per day?" prompt ---------- */
+const allComplete=()=>S.rows.length>=2&&S.rows.every(r=>calcRow(r));
+function proteinSig(){const p=getItems().map(x=>x.pro);return{spread:p.length>1?Math.max(...p)-Math.min(...p):0,sig:p.map(v=>v.toFixed(1)).join('|')}}
+function checkComplete(force){
+ if(!force&&!allComplete())return false;
+ if(getItems().length<2)return false;
+ const {spread,sig}=proteinSig();
+ if(spread>=1&&S.askedSig!==sig){askProtein(sig);return true}
+ return false;
+}
+function askProtein(sig){
+ S.askedSig=sig;S.dm='grams';
+ const rec=recGpd();if(rec)S.gpd=rec.v;
+ savePrefs();syncDailyIntakeUI();
+ const items=getItems();
+ $('#askTxt').innerHTML=`Your products give different protein per scoop (${items.map(x=>`${esc(x.name)}: <b>${fmtG(x.pro)} g</b>`).join(', ')}), so comparing "per scoop" isn't fair. <b>How many grams of protein do you want from your shake every day?</b>${rec?` We've filled in <b>${fmtG(rec.v)} g</b> (${S.spd} scoop${S.spd>1?'s':''} of the higher-protein one, ${esc(rec.name)}). Change it if you like.`:''}`;
+ $('#askBox').hidden=false;
+ S.show=true;renderResults();
+ const g=$('#gpd');
+ g.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+ setTimeout(()=>{g.focus({preventScroll:true});g.select()},300);
+ g.classList.add('pulse');setTimeout(()=>g.classList.remove('pulse'),3500);
+}
+function scrollToResults(){setTimeout(()=>{const el=$('#results');if(el)el.scrollIntoView({behavior:'smooth'})},80)}
+
+/* ---------- results ---------- */
+function equivHTML(gap){
+ const fl=(v,s)=>Math.floor(v/s+1e-9)*s;
+ const nf=q=>(Number.isInteger(q)?q:q.toFixed(1)).toLocaleString('en-IN');
+ const rng=(a,b,f)=>a===b?f(b):a<=0?'up to '+f(b):f(a)+'–'+f(b);
+ const picks=EQUIV.map(e=>{const a=fl(gap/e.hi,e.step),b=fl(gap/e.lo,e.step);return b>=e.step?Object.assign({a,b},e):null}).filter(Boolean).slice(0,4);
+ if(!picks.length)return '';
+ const g=n=>Math.round(n).toLocaleString('en-IN');
+ const kg=n=>(Math.round(n*10)/10).toLocaleString('en-IN');
+ return `<div class="eqh">That extra ${inr0(gap)} a year could buy you:</div><div class="eq">${picks.map(e=>`<div><span class="ei" aria-hidden="true">${e.icon}</span><b>${rng(e.a,e.b,nf)}${e.unit?' '+e.unit:''}</b>${esc(e.name)}${e.protein?`<small>≈ ${e.b*e.protein>=1000?rng(e.a*e.protein/1000,e.b*e.protein/1000,kg)+' kg':rng(e.a*e.protein,e.b*e.protein,g)+' g'} protein</small>`:''}</div>`).join('')}</div><p class="meta" style="margin:6px 0 0;font-size:.78rem">Ranges use approx. low and high prices. They vary by city and brand.</p>`;
+}
 function renderResults(){
  const box=$('#results');
  if(!S.show){box.innerHTML='';return}
@@ -255,52 +458,45 @@ function renderResults(){
  }
  const isGrams=S.dm==='grams';
  const sorted=[...items].sort((a,b)=>a.pg-b.pg),best=sorted[0],worst=sorted[sorted.length-1];
+ const same=worst.pg-best.pg<1e-9;
+ const dailyPro=isGrams?S.gpd:best.pro*S.spd;   // extra cost is always compared for the SAME amount of protein
  const spend=x=>isGrams?x.pg*S.gpd:x.ps*S.spd;
- const maxSpend=Math.max(...items.map(x=>spend(x)));
- const worstBySpend=items.find(x=>Math.abs(spend(x)-maxSpend)<1e-6)||worst;
- sorted.forEach(x=>{
-  const s=spend(x);
-  x.sy_cost=s*365;
-  x.sm_cost=s*30;
-  const d=Math.max(0,maxSpend-s);
-  x.sm=d*30;
-  x.sy=d*365;
+ sorted.forEach((x,i)=>{
+  x.sy_cost=spend(x)*365;
+  x.xm=(x.pg-best.pg)*dailyPro*30;
+  x.xy=(x.pg-best.pg)*dailyPro*365;
+  x.st=same?'mid':i===0?'win':i===sorted.length-1?'lose':'mid';
+  x.rank=i+1;
  });
- const minSpend=Math.min(...items.map(x=>spend(x)));
- const same=(maxSpend-minSpend)<1e-6;
- const mx=f=>Math.max(...items.map(x=>x[f])),mn=f=>Math.min(...items.map(x=>x[f]));
- const pcts=items.filter(x=>x.pct!=null).map(x=>x.pct);
- const hi=(v,t)=>Math.abs(v-t)<1e-6?' class="best"':'';
+ const ext=(f,hiGood)=>{const v=items.map(x=>x[f]).filter(v=>v!=null);if(v.length<2)return null;const a=Math.max(...v),b=Math.min(...v);return a-b<1e-9?null:{good:hiGood?a:b,bad:hiGood?b:a}};
+ const cl=(v,e)=>!e||v==null?'':Math.abs(v-e.good)<1e-9?' class="best"':Math.abs(v-e.bad)<1e-9?' class="worst"':'';
+ const E={pg:ext('pg'),sy:ext('sy_cost'),ps:ext('ps'),pro:ext('pro',1),pct:ext('pct',1)};
  const dd=(l,v,c)=>`<div><dt>${l}</dt><dd${c||''}>${v}</dd></div>`;
- const saveTxt=x=>same?'Same cost':Math.abs(spend(x)-maxSpend)<1e-6?'Highest cost (baseline for savings)':`Saves <b>${inr0(x.sm)}</b>/mo and <b>${inr0(x.sy)}</b>/yr`;
- const rk=i=>i===0&&!same?'Best value':'#'+(i+1);
- const costLabel=isGrams?`Yearly protein cost (${S.gpd}g/day)`:`Yearly cost (${S.spd} scoop${S.spd>1?'s':''}/day)`;
- const cols=`<div class="cols">${sorted.map((x,i)=>`<div class="pc${i===0&&!same?' top':''}"><div class="rk">${rk(i)}</div><h3>${esc(x.name)}</h3>
-<div class="big">${inr(x.pg)}<small>per gram of protein</small></div>
-<dl>${dd('Price per g protein',inr(x.pg),hi(x.pg,mn('pg')))}${dd(costLabel,inr0(x.sy_cost)+'/yr',hi(spend(x),Math.min(...items.map(it=>spend(it)))))}
-${dd('Price per scoop',inr(x.ps))}${dd('Protein per scoop',x.pro.toFixed(0)+' g',hi(x.pro,mx('pro')))}${dd('Protein %',x.pct==null?'—':x.pct.toFixed(0)+'%',x.pct!=null&&pcts.length>1?hi(x.pct,Math.max(...pcts)):'')}${dd('No. of servings',x.n.toFixed(0))}${dd('Pack price',inr(x.price))}</dl>
-<div class="save">${saveTxt(x)}</div></div>`).join('')}</div>`;
- const list=`<ol class="rank">${sorted.map((x,i)=>`<li class="lrow"><div class="lt"><span class="rk">${rk(i)}</span><b>${esc(x.name)}</b><span class="lv">${inr(x.pg)}<small>per g protein</small></span></div>
-<div class="track" aria-hidden="true"><div class="fill${i===0&&!same?' best':''}" style="width:${Math.max(6,x.pg/worst.pg*100)}%"></div></div>
-<div class="ls">${saveTxt(x)} · ${inr0(x.sy_cost)}/year · ${inr(x.ps)} per scoop · ${x.pro.toFixed(0)} g protein per scoop · ${x.n.toFixed(0)} servings per pack</div></li>`).join('')}</ol>`;
- const seg=(a,list)=>`<div class="seg" role="group">${list.map(([v,l])=>`<button type="button" data-${a}="${v}" aria-pressed="${S[a]===v}">${l}</button>`).join('')}</div>`;
-
- const verdictDetail=isGrams
-  ?`<div><b>${inr(best.pg)}</b> per gram of protein · <b>${inr0(best.sy_cost)}</b> / year for ${S.gpd}g protein/day</div>`
-  :`<div><b>${inr(best.pg)}</b> per gram of protein · <b>${inr0(best.sy_cost)}</b> / year (${S.spd} scoop${S.spd>1?'s':''}/day)</div>`;
-
- const savingsLine=same?'':(best.sy>0
-  ?`<div>You save about <b>${inr0(best.sm)}</b> a month and <b>${inr0(best.sy)}</b> a year compared with ${esc(worstBySpend.name)}.</div>`
-  :`<div>Yearly cost: <b>${inr0(best.sy_cost)}</b>. ${isGrams?'':`Switch to "Grams of protein / day" above to compare total protein cost and savings.`}</div>`);
-
+ const badge=x=>x.st==='win'?'<span class="rk win">🏆 Best value</span>':x.st==='lose'?'<span class="rk lose">💸 Most expensive</span>':`<span class="rk">#${x.rank}</span>`;
+ const extra=x=>same?'<div class="xtra">Same cost per gram of protein</div>'
+  :x.st==='win'?`<div class="xtra win">Saves you <b>${inr0(worst.xy)}/year</b> · ${inr0(worst.xm)}/month<br><small>vs ${esc(worst.name)}, for the same protein</small></div>`
+  :`<div class="xtra ${x.st}">You pay <b>+${inr0(x.xy)}/year</b> · +${inr0(x.xm)}/month<br><small>+${inr(x.pg-best.pg)} per g protein vs ${esc(best.name)}</small></div>`;
+ const costLabel=isGrams?`Yearly cost (${S.gpd} g protein/day)`:`Yearly cost (${S.spd} scoop${S.spd>1?'s':''}/day)`;
+ const cols=`<div class="cols">${sorted.map(x=>`<div class="pc ${x.st}">${badge(x)}<h3>${esc(x.name)}</h3>
+<div class="big">${inr(x.pg)}<small>per gram of protein</small></div>${extra(x)}
+<dl>${dd('Price per g protein',inr(x.pg),cl(x.pg,E.pg))}${dd(costLabel,inr0(x.sy_cost)+'/yr',cl(x.sy_cost,E.sy))}
+${dd('Price per scoop',inr(x.ps),cl(x.ps,E.ps))}${dd('Protein per scoop',fmtG(x.pro)+' g',cl(x.pro,E.pro))}${dd('Protein %',x.pct==null?'—':x.pct.toFixed(0)+'%',cl(x.pct,E.pct))}${dd('No. of servings',x.n.toFixed(0))}${dd('Pack price',inr(x.price))}</dl></div>`).join('')}</div>`;
+ const list=`<ol class="rank">${sorted.map(x=>`<li class="lrow ${x.st}"><div class="lt">${badge(x)}<b>${esc(x.name)}</b><span class="lv">${inr(x.pg)}<small>per g protein</small></span></div>
+<div class="track" aria-hidden="true"><div class="fill ${x.st}" style="width:${Math.max(6,x.pg/worst.pg*100)}%"></div></div>
+${extra(x)}<div class="ls">${inr0(x.sy_cost)}/year · ${inr(x.ps)} per scoop · ${fmtG(x.pro)} g protein per scoop · ${x.n.toFixed(0)} servings per pack</div></li>`).join('')}</ol>`;
+ const seg=(a,l)=>`<div class="seg" role="group">${l.map(([v,t])=>`<button type="button" data-${a}="${v}" aria-pressed="${S[a]===v}">${t}</button>`).join('')}</div>`;
+ const verdict=same
+  ?`<div class="verdict same"><div class="vk">These cost the same per gram of protein</div><div class="vn">${sorted.map(x=>esc(x.name)).join(' = ')}</div><div>${inr(best.pg)} per gram of protein</div></div>`
+  :`<div class="verdict"><div class="vk">🏆 Best value for you: lowest price per gram of protein</div><div class="vn">${esc(best.name)}</div>
+<div><b>${inr(best.pg)}</b> per gram of protein · <b>${inr0(best.sy_cost)}</b>/year</div>
+<div class="vsave">Picking it over <b>${esc(worst.name)}</b> saves you <b>${inr0(worst.xy)} a year</b> (${inr0(worst.xm)} a month).</div>
+${equivHTML(worst.xy)}</div>`;
  box.innerHTML=`<div class="panel">
 <div class="row" style="justify-content:space-between"><h2 style="margin:0">2. Your comparison</h2>
 <div class="row">${seg('view',[['side','Side by side'],['list','Top to bottom']])}</div></div>
-<div class="verdict"><div><div class="vk">${same?'These cost the same':(isGrams?'Best value for you (Lowest cost per gram of protein)':'Best value for you (Lowest price per gram of protein)')}</div><div class="vn">${esc(best.name)}</div>
-${verdictDetail}
-${savingsLine}</div></div>
+${verdict}
 ${S.view==='side'?cols:list}
-<p class="meta">${isGrams?`Yearly protein costs and savings are calculated for <b>${S.gpd} g of protein per day</b> (30 days a month, 365 days a year).`:`Yearly costs and savings are calculated for <b>${S.spd} scoop${S.spd>1?'s':''} a day</b> (30 days a month, 365 days a year). Switch to "Grams of protein / day" above to compare by daily protein target.`}</p></div>`;
+<p class="meta">Extra cost is worked out for the <b>same amount of protein: ${fmtG(dailyPro)} g a day</b>${isGrams?'':` (what ${S.spd} scoop${S.spd>1?'s':''} of ${esc(best.name)} gives you)`}, with 30-day months and 365-day years.</p></div>`;
 }
 
 function renderShop(){
@@ -311,138 +507,115 @@ function renderShop(){
 
 function showToast(msg){
  let t=$('#calcToast');
- if(!t){
-  t=document.createElement('div');
-  t.id='calcToast';
-  t.className='toast';
-  document.body.appendChild(t);
- }
- t.textContent=msg;
- t.style.opacity='1';
- t.hidden=false;
+ if(!t){t=document.createElement('div');t.id='calcToast';t.className='toast';t.setAttribute('role','status');document.body.appendChild(t)}
+ t.textContent=msg;t.style.opacity='1';t.hidden=false;
  clearTimeout(t._tm);
- t._tm=setTimeout(()=>{
-  t.style.opacity='0';
-  setTimeout(()=>{t.hidden=true},200);
- },2500);
+ t._tm=setTimeout(()=>{t.style.opacity='0';setTimeout(()=>{t.hidden=true},200)},2800);
 }
 
 function getViewerUser(){
- try{
-  const u=localStorage.getItem('protein_calc_user');
-  return u?JSON.parse(u):null;
- }catch(e){return null}
+ try{const u=localStorage.getItem('protein_calc_user');return u?JSON.parse(u):null}catch(e){return null}
 }
-
 function updateAuthUI(){
- const u=getViewerUser();
- const modal=$('#authModal');
- const userPill=$('#userPill');
- const userIdent=$('#userIdent');
+ const u=getViewerUser(),modal=$('#authModal'),userPill=$('#userPill'),userIdent=$('#userIdent');
  if(u&&(u.phone||u.email||u.skipped)){
   if(modal)modal.hidden=true;
-  if(userPill){
-   userPill.hidden=!(u.phone||u.email);
-   userIdent.textContent=u.phone||u.email||'';
-  }
+  if(userPill){userPill.hidden=!(u.phone||u.email);userIdent.textContent=u.phone||u.email||''}
  }else{
   if(modal)modal.hidden=false;
   if(userPill)userPill.hidden=true;
  }
 }
 
-function saveProductsToStorage(){
- const list=S.rows.map(r=>({
-  name:r.name,
-  protein:r.protein,
-  pct:r.pct,
-  scoop:r.scoop,
-  pack:r.pack,
-  unit:r.unit,
-  servings:r.servings
- }));
- try{
-  localStorage.setItem('protein_calc_saved_products',JSON.stringify({pm:S.pm,dm:S.dm,spd:S.spd,gpd:S.gpd,rows:list}));
-  showToast('✓ Saved! Products will load on refresh with blank prices.');
-  showSavedNotice(true);
- }catch(e){
-  alert('Could not save products to browser storage.');
- }
+/* recommended protein/day = the HIGHER protein per scoop the viewer entered × their scoops/day */
+function recGpd(){
+ let best=null;
+ S.rows.forEach((r,i)=>{const p=proOf(r);if(p>0&&(!best||p>best.p))best={p,name:r.name.trim()||'Product '+(i+1)}});
+ return best?{v:round1(best.p*S.spd),p:best.p,name:best.name}:null;
 }
-
-function loadSavedProducts(){
- try{
-  const raw=localStorage.getItem('protein_calc_saved_products');
-  if(!raw)return false;
-  const parsed=JSON.parse(raw);
-  if(parsed&&parsed.rows&&parsed.rows.length){
-   uid=0;
-   S.pm=parsed.pm||'g';
-   S.dm=parsed.dm||'scoops';
-   S.spd=+parsed.spd||1;
-   S.gpd=+parsed.gpd||50;
-   S.rows=parsed.rows.map(r=>Object.assign(newRow(),r,{price:''}));
-   return true;
-  }
- }catch(e){}
- return false;
+function renderGpdChips(){
+ const box=$('#gpdWrap .qp');if(!box)return;
+ const rec=recGpd();
+ const list=QP.gpd.filter(v=>!rec||Math.abs(v-rec.v)>1e-9);
+ box.innerHTML=(rec?`<button type="button" data-qp="gpd" data-v="${rec.v}" class="rec${Math.abs(S.gpd-rec.v)<1e-9?' on':''}" title="${esc(fmtG(rec.p))} g per scoop of ${esc(rec.name)} × ${S.spd} scoop${S.spd>1?'s':''} a day">⭐ ${fmtG(rec.v)} g · recommended</button>`:'')
+  +list.map(v=>`<button type="button" data-qp="gpd" data-v="${v}" class="${Math.abs(S.gpd-v)<1e-9?'on':''}">${v} g</button>`).join('');
 }
-
 function syncDailyIntakeUI(){
  const isScoops=S.dm==='scoops';
  document.querySelectorAll('[data-dm]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.dm===S.dm));
- const spdWrap=$('#spdWrap'),gpdWrap=$('#gpdWrap');
- if(spdWrap)spdWrap.hidden=!isScoops;
- if(gpdWrap)gpdWrap.hidden=isScoops;
- const spdEl=$('#spd');if(spdEl)spdEl.value=String(S.spd);
- const gpdEl=$('#gpd');if(gpdEl)gpdEl.value=String(S.gpd);
+ $('#spdWrap').hidden=!isScoops;
+ $('#gpdWrap').hidden=isScoops;
+ if(isScoops)$('#askBox').hidden=true;
+ $('#spd').value=String(S.spd);
+ $('#gpd').value=String(S.gpd);
+ renderGpdChips();
 }
 
-function showSavedNotice(show){
- const notice=$('#saveNotice');
- if(notice)notice.hidden=!show;
+function saveRow(r){
+ const nameEl=$('#name'+r.id);
+ if(!r.name.trim()){showToast('Give this product a name first, so you can find it later.');if(nameEl)nameEl.focus();return false}
+ if(!(proOf(r)>0)){showToast('Fill in the protein first.');const el=$('#'+required()[0]+r.id);if(el)el.focus();return false}
+ const res=upsertLib(snapshot(r));
+ if(!storeLib())return false;
+ renderLib();rowsHTML();
+ showToast(res==='updated'?`Updated “${r.name.trim()}” in your products ✓`:`Saved “${r.name.trim()}” ✓ Pick it from “My saved products” next time.`);
+ return true;
 }
 
 document.addEventListener('click',e=>{
- const t=e.target.closest('[data-pm],[data-dm],[data-view],[data-rm],#add,#go,#saveProducts,#clearSaved,#signOutBtn');if(!t)return;
- if(t.dataset.pm){S.pm=t.dataset.pm;document.querySelectorAll('[data-pm]').forEach(b=>b.setAttribute('aria-pressed',b===t));rowsHTML();renderResults()}
- else if(t.dataset.dm){
-  S.dm=t.dataset.dm;
-  syncDailyIntakeUI();
-  if(S.show)renderResults();
- }
+ const t=e.target.closest('[data-pm],[data-dm],[data-view],[data-rm],[data-qp],[data-saverow],[data-libdel],[data-libsel],#libCompare,#saveAll,#seeRes,#add,#go,#signOutBtn');if(!t)return;
+ if(t.dataset.pm){setPm(t.dataset.pm);rowsHTML();renderResults()}
+ else if(t.dataset.dm){S.dm=t.dataset.dm;savePrefs();syncDailyIntakeUI();if(S.show)renderResults()}
  else if(t.dataset.view){S.view=t.dataset.view;renderResults()}
  else if(t.dataset.rm){S.rows=S.rows.filter(r=>r.id!==+t.dataset.rm);rowsHTML();renderResults()}
- else if(t.id==='add'){const r=newRow();S.rows.push(r);rowsHTML();renderResults();const n=$('#nm'+r.id);if(n)n.focus()}
+ else if(t.dataset.qp==='gpd'){
+  S.gpd=+t.dataset.v;savePrefs();syncDailyIntakeUI();S.show=true;renderResults();scrollToResults();
+ }
+ else if(t.dataset.qp){
+  const rowEl=t.closest('[data-row]');const r=rowEl&&S.rows.find(x=>x.id===+rowEl.dataset.row);if(!r)return;
+  const k=t.dataset.qp,v=t.dataset.v;
+  r[k]=v;const inp=$('#'+k+r.id);if(inp)inp.value=v;
+  if(k==='pack'){r.unit='kg';const u=$('#unit'+r.id);if(u)u.value='kg'}
+  afterRowChange(r,k);
+  focusNext(r);
+ }
+ else if(t.dataset.saverow){const r=S.rows.find(x=>x.id===+t.dataset.saverow);if(r)saveRow(r)}
+ else if(t.id==='saveAll'){
+  let saved=0,skipped=0;
+  S.rows.forEach(r=>{if(r.name.trim()&&proOf(r)>0){upsertLib(snapshot(r));saved++}else if(r.name||r.protein||r.pct||r.price)skipped++});
+  if(!saved){showToast('Add a name and protein to a product to save it.');return}
+  if(!storeLib())return;
+  renderLib();rowsHTML();
+  showToast(`Saved ${saved} product${saved>1?'s':''} ✓${skipped?` (${skipped} skipped: needs a name and protein)`:''}`);
+ }
+ else if(t.dataset.libdel){
+  const p=LIB.find(x=>x.id===t.dataset.libdel);if(!p)return;
+  if(confirm(`Delete “${p.name}” from your saved products?`)){LIB=LIB.filter(x=>x!==p);storeLib();renderLib();rowsHTML();showToast('Deleted.')}
+ }
+ else if(t.dataset.libsel){
+  const boxes=[...document.querySelectorAll('.libchk')],all=boxes.every(b=>b.checked);
+  boxes.forEach(b=>b.checked=!all);t.textContent=all?'Select all':'Clear selection';
+ }
+ else if(t.id==='libCompare'){
+  const ids=[...document.querySelectorAll('.libchk:checked')].map(b=>b.value);
+  if(!ids.length){showToast('Tick at least one product to compare.');return}
+  uid=0;
+  S.rows=ids.map(id=>Object.assign(newRow(),pickFields(LIB.find(p=>p.id===id)||{})));
+  if(S.rows.length<2)S.rows.push(newRow());
+  S.rows.forEach(fitModeTo);convertRows(S.pm);
+  S.askedSig=null;rowsHTML();renderResults();
+  const f=$('#price'+S.rows[0].id);if(f){f.scrollIntoView({block:'center'});f.focus({preventScroll:true})}
+  showToast('Now enter today’s price for each product.');
+ }
+ else if(t.id==='seeRes'){scrollToResults()}
+ else if(t.id==='add'){const r=newRow();S.rows.push(r);rowsHTML();renderResults();const n=$('#name'+r.id);if(n)n.focus()}
  else if(t.id==='go'){
   S.show=true;
-  renderResults();
-  setTimeout(()=>{
-   const resEl=$('#results');
-   if(resEl)resEl.scrollIntoView({behavior:'smooth'});
-  },100);
- }
- else if(t.id==='saveProducts'){saveProductsToStorage()}
- else if(t.id==='clearSaved'){
-  if(confirm('Clear saved products and reset to defaults?')){
-   localStorage.removeItem('protein_calc_saved_products');
-   uid=0;
-   S.rows=[newRow(),newRow()];
-   S.dm='scoops';
-   S.spd=1;
-   S.gpd=50;
-   syncDailyIntakeUI();
-   rowsHTML();
-   renderResults();
-   showSavedNotice(false);
-   showToast('Saved products cleared.');
-  }
+  if(checkComplete(true))return;   // different protein per scoop → ask daily protein first
+  renderResults();scrollToResults();
  }
  else if(t.id==='signOutBtn'){
-  if(confirm('Sign out of this device?')){
-   localStorage.removeItem('protein_calc_user');
-   updateAuthUI();
-  }
+  if(confirm('Sign out of this device?')){localStorage.removeItem('protein_calc_user');updateAuthUI()}
  }
 });
 
@@ -451,85 +624,62 @@ $('#authForm').addEventListener('submit',e=>{
  const phone=$('#authPhone').value.trim();
  const email=$('#authEmail').value.trim();
  const errEl=$('#authErr');
-
- if(!phone && !email){
-  errEl.textContent='Please enter a phone number or an email address (or both).';
-  errEl.hidden=false;
-  return;
- }
- if(phone && !/^\+?[\d\s\-()]{7,15}$/.test(phone)){
-  errEl.textContent='Please enter a valid phone number.';
-  errEl.hidden=false;
-  return;
- }
- if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-  errEl.textContent='Please enter a valid email address.';
-  errEl.hidden=false;
-  return;
- }
- if(!$('#authConsent').checked){
-  errEl.textContent='Please tick the box to agree, or tap "Skip" to use the calculator without sharing details.';
-  errEl.hidden=false;
-  return;
- }
+ if(!phone && !email){errEl.textContent='Please enter a phone number or an email address (or both).';errEl.hidden=false;return}
+ if(phone && !/^\+?[\d\s\-()]{7,15}$/.test(phone)){errEl.textContent='Please enter a valid phone number.';errEl.hidden=false;return}
+ if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){errEl.textContent='Please enter a valid email address.';errEl.hidden=false;return}
+ if(!$('#authConsent').checked){errEl.textContent='Please tick the box to agree, or tap "Skip" to use the calculator without sharing details.';errEl.hidden=false;return}
  errEl.hidden=true;
-
  const user={phone,email,date:new Date().toISOString()};
- try{
-  localStorage.setItem('protein_calc_user',JSON.stringify(user));
- }catch(ex){}
-
+ try{localStorage.setItem('protein_calc_user',JSON.stringify(user))}catch(ex){}
  if(GOOGLE_FORM_URL && (ENTRY_PHONE || ENTRY_EMAIL)){
   const fd=new FormData();
   if(ENTRY_PHONE && phone) fd.append(ENTRY_PHONE,phone);
   if(ENTRY_EMAIL && email) fd.append(ENTRY_EMAIL,email);
-  try{
-   fetch(GOOGLE_FORM_URL,{method:'POST',mode:'no-cors',body:fd}).catch(()=>{});
-  }catch(ex){}
+  try{fetch(GOOGLE_FORM_URL,{method:'POST',mode:'no-cors',body:fd}).catch(()=>{})}catch(ex){}
  }
-
  updateAuthUI();
  showToast('Thanks! Details saved.');
 });
 
 $('#authSkip').addEventListener('click',()=>{
- try{
-  localStorage.setItem('protein_calc_user',JSON.stringify({skipped:true,date:new Date().toISOString()}));
- }catch(ex){}
+ try{localStorage.setItem('protein_calc_user',JSON.stringify({skipped:true,date:new Date().toISOString()}))}catch(ex){}
  $('#authModal').hidden=true;
 });
 
 function onRowInput(e){
+ const sel=e.target.dataset.load;
+ if(sel){
+  if(e.type!=='change'||!e.target.value)return;
+  const r=S.rows.find(x=>x.id===+sel),p=LIB.find(x=>x.id===e.target.value);if(!r||!p)return;
+  Object.assign(r,pickFields(p),{price:''});
+  fitModeTo(r);convertRows(S.pm);
+  rowsHTML();renderResults();
+  const f=$('#price'+r.id);if(f)f.focus();
+  showToast(`Loaded “${p.name}”. Enter today’s price.`);
+  return;
+ }
  const k=e.target.dataset.k,row=e.target.closest('[data-row]');if(!k||!row)return;
  const r=S.rows.find(x=>x.id===+row.dataset.row);if(!r)return;
  r[k]=e.target.value;
- if(k==='scoop'||k==='pack'||k==='unit'){
-  const autoN=calcServingsFromPack(r.pack,r.unit,r.scoop);
-  if(autoN!=null){
-   r.servings=autoN;
-   const servEl=$('#servings'+r.id);
-   if(servEl)servEl.value=autoN;
-  }
- }
- const s=+r.scoop;$('#w'+r.id).hidden=!(s>0&&proOf(r)>s);
- if(S.show)renderResults();
+ afterRowChange(r,k);
+ if(e.type==='change')checkComplete();   // fires when the user leaves a field: if everything's filled, ask protein/day
 }
 $('#rows').addEventListener('input',onRowInput);
 $('#rows').addEventListener('change',onRowInput);
-$('#spd').addEventListener('change',e=>{S.spd=+e.target.value||1;if(S.show)renderResults()});
-const onGpdChange=e=>{S.gpd=+e.target.value||50;if(S.show)renderResults()};
-$('#gpd').addEventListener('input',onGpdChange);
-$('#gpd').addEventListener('change',onGpdChange);
+$('#spd').addEventListener('change',e=>{S.spd=+e.target.value||1;savePrefs();renderGpdChips();if(S.show)renderResults()});
+const onGpd=e=>{S.gpd=+e.target.value||50;savePrefs();renderGpdChips();if(S.show)renderResults()};
+$('#gpd').addEventListener('input',onGpd);
+$('#gpd').addEventListener('keydown',e=>{if(e.key==='Enter'){S.show=true;renderResults();scrollToResults()}});
 
-const hasSaved=loadSavedProducts();
+/* init */
+loadLib();
+loadPrefs();
 document.querySelectorAll('[data-pm]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pm===S.pm));
 syncDailyIntakeUI();
+renderLib();
 rowsHTML();
 renderShop();
 updateAuthUI();
-if(hasSaved){
- showSavedNotice(true);
-}
 </script>
 </body>
 </html>
